@@ -1,6 +1,6 @@
 // middlewares/isAdmin.ts
 import { Request, Response, NextFunction } from "express";
-import ForbiddenError from "../errors/forbidden-error";
+import { ForbiddenError } from "../errors/forbidden-error";
 
 export const isAdminMiddleware = async (
   req: Request,
