@@ -14,6 +14,7 @@ export * from "./errors/not-licensed";
 export * from "./errors/register-error";
 export * from "./errors/server-error";
 export * from "./errors/unauthorized-error";
+export * from "./errors/failed-error";
 
 export * from "./kafka/kafka-provider";
 export * from "./kafka/kafka-consumer";
