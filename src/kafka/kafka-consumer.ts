@@ -1,6 +1,6 @@
 import { Kafka, Consumer, EachMessagePayload } from 'kafkajs';
 
-class KafkaConsumer {
+export class KafkaConsumer {
   private consumer: Consumer;
 
   constructor(brokers: string[], groupId: string) {
@@ -25,4 +25,3 @@ class KafkaConsumer {
   }
 }
 
-export default KafkaConsumer;
