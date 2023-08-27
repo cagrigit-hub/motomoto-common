@@ -1,6 +1,6 @@
 import { Kafka, Producer, ProducerRecord } from 'kafkajs';
 
-export class KafkaProvider {
+export class KafkaProducer {
   private kafka: Kafka;
   private producer: Producer;
 
