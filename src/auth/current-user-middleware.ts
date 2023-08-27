@@ -3,11 +3,13 @@ import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { validateAccessToken } from './auth-utils';
 
+// UserPayload type extends JwtPayload with the userId property
+export type UserPayload = JwtPayload & { userId: string, isAdmin: boolean };
 
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload
+      user?: UserPayload
     }
   }
 }
@@ -29,7 +31,7 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
     return res.status(401).json({ error: 'Token about to expire', refresh_token_required: true });
   }
   // set req.user 
-  req.user = decoded;
+  req.user = decoded as UserPayload;
   
   // Token is valid, continue to the next middleware/route handler
   next();
