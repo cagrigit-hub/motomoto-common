@@ -6,6 +6,7 @@ import { validateAccessToken } from './auth-utils';
 // UserPayload type extends JwtPayload with the userId property
 export type UserPayload = JwtPayload & { userId: string, isAdmin: boolean };
 
+
 declare global {
   namespace Express {
     interface Request {
