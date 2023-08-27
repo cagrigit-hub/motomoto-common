@@ -16,5 +16,5 @@ export * from "./errors/server-error";
 export * from "./errors/unauthorized-error";
 export * from "./errors/failed-error";
 
-export * from "./kafka/kafka-provider";
+export * from "./kafka/kafka-producer";
 export * from "./kafka/kafka-consumer";
