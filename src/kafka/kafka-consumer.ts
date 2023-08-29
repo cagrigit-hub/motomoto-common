@@ -2,22 +2,27 @@ import { Kafka, Consumer, EachMessagePayload } from 'kafkajs';
 
 export class KafkaConsumer {
   private consumer: Consumer;
-
-  constructor(topic: string, groupId: string, brokers: string[]) {
+  private topicToCallback: Map<string, (payload: EachMessagePayload) => Promise<void>>;
+  constructor(groupId: string, brokers: string[]) {
     const kafka = new Kafka({ brokers });
     this.consumer = kafka.consumer({ groupId });
-
-    this.runConsumer(topic);
+    this.topicToCallback = new Map<string, (payload: EachMessagePayload) => Promise<void>>();
   }
 
-  async runConsumer(topic: string) {
+  async connect() {
     await this.consumer.connect();
-    await this.consumer.subscribe({ topic, fromBeginning: true });
-
+  }
+  async subscribe(topic: string, callback: (payload: EachMessagePayload) => Promise<void>, fromBeginning: boolean) {
+    await this.consumer.subscribe({ topic, fromBeginning });
+    this.topicToCallback.set(topic, callback);
+  }
+  async run() {
     await this.consumer.run({
-      eachMessage: async (payload: EachMessagePayload) => {
-        const messageContent = payload.message.value?.toString();
-        console.log(`Received message: ${messageContent}`);
+      eachMessage: async (payload) => {
+        const callback = this.topicToCallback.get(payload.topic);
+        if (callback) {
+          await callback(payload);
+        }
       },
     });
   }

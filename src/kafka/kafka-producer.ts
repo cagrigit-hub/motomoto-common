@@ -6,7 +6,10 @@ export class KafkaProducer {
 
   constructor(brokers: string[]) {
     this.kafka = new Kafka({ brokers });
-    this.producer = this.kafka.producer();
+    this.producer = this.kafka.producer({
+      allowAutoTopicCreation: false,
+      transactionTimeout: 30000,
+    });
   }
 
   async send(topic: string, message: any) {
