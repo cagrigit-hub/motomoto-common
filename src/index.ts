@@ -18,3 +18,6 @@ export * from "./errors/failed-error";
 
 export * from "./kafka/kafka-producer";
 export * from "./kafka/kafka-consumer";
+
+export * from "./kafka/topic-types";
+export * from "./kafka/topics";
