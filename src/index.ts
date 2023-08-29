@@ -21,3 +21,4 @@ export * from "./kafka/kafka-consumer";
 
 export * from "./kafka/topic-types";
 export * from "./kafka/topics";
+export * from "./kafka/group-id";
